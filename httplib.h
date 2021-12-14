@@ -1816,6 +1816,10 @@ private:
   std::string glowable_buffer_;
 };
 
+bool parse_www_authenticate(const Response &res,
+                            std::map<std::string, std::string> &auth,
+                            bool is_proxy);
+
 } // namespace detail
 
 // ----------------------------------------------------------------------------

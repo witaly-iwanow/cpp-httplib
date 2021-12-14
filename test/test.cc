@@ -349,6 +349,17 @@ TEST(ParseAcceptEncoding3, AcceptEncoding) {
 #endif
 }
 
+TEST(ParseDigestAuthenticationHeader, WWWAuthenticate) {
+  Response res;
+  res.set_header("WWW-Authenticate", R"~(Digest qop="auth", realm="IP Camera(E5294)", nonce="59574d334e5751784e6d5536596a51304d54466c4e57453d", stale="FALSE")~");
+
+  std::map<std::string, std::string> auth;
+  auto ret = detail::parse_www_authenticate(res, auth, false);
+
+  ASSERT_TRUE(ret);
+  EXPECT_EQ("IP Camera(E5294)", auth["realm"]);
+}
+
 TEST(BufferStreamTest, read) {
   detail::BufferStream strm1;
   Stream &strm = strm1;
